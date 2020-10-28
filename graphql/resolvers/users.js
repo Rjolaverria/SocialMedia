@@ -19,9 +19,6 @@ const tokenGen = (user) =>
     );
 
 module.exports = {
-    Query: {
-        sayHi: () => 'Hello World!',
-    },
     Mutation: {
         // REGISTER USER
         async register(
