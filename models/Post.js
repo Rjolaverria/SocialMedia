@@ -16,6 +16,10 @@ const PostSchema = new Schema({
     likes: [
         {
             user: userObject,
+            dateCreated: {
+                type: Date,
+                default: Date.now,
+            },
         },
     ],
     comments: [

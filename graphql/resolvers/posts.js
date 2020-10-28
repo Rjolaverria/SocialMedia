@@ -103,13 +103,40 @@ module.exports = {
                     (c) => c.id === commentId
                 );
 
-                if (index === -1)throw new UserInputError('Comment not found');
-                
+                if (index === -1) throw new UserInputError('Comment not found');
+
                 if (String(post.comments[index].user) !== user.id) {
                     throw new AuthenticationError('Not Authorized');
                 }
 
                 post.comments.splice(index, 1);
+                await post.save();
+                return post;
+            } catch (error) {
+                throw new Error(error);
+            }
+        },
+        // Like Post
+        async handleLike(_, { postId }, context) {
+            const user = auth(context);
+
+            try {
+                const post = await Post.findById(postId);
+                if (!post) throw new UserInputError('Post not found');
+
+                const liked = post.likes.find(
+                    (like) => String(like.user) === user.id
+                );
+                if (!liked) {
+                    post.likes.push({
+                        user: user.id,
+                    });
+                } else {
+                    post.likes = post.likes.filter(
+                        (like) => String(like.user) !== user.id
+                    );
+                }
+
                 await post.save();
                 return post;
             } catch (error) {
