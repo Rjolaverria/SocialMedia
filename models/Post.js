@@ -21,11 +21,12 @@ const PostSchema = new Schema({
     comments: [
         {
             user: userObject,
+            username: String,
             body: {
                 type: String,
                 required: true,
             },
-            date: {
+            dateCreated: {
                 type: Date,
                 default: Date.now,
             },
