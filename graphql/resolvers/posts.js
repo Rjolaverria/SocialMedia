@@ -37,14 +37,34 @@ module.exports = {
                 throw new UserInputError("Post body cant't be empty.");
             }
 
-            const newPost = new Post({
-                user: user.id,
-                username: user.username,
-                body,
-            });
+            try {
+                const newPost = new Post({
+                    user: user.id,
+                    username: user.username,
+                    body,
+                });
 
-            const post = await newPost.save();
-            return post;
+                const post = await newPost.save();
+                return post;
+            } catch (error) {
+                throw new Error(error);
+            }
+
+        },
+        // DELETE Post
+        async deletePost(_, { postId }, context) {
+            const user = auth(context);
+            try {
+                const post = await Post.findById(postId)
+                if (user.id !== String(post.user)){
+                    throw new Error('Not Authorized to delete this post')
+                }
+    
+                await post.delete()
+                return 'Post deleted'
+            } catch (error) {
+                throw new Error(error)
+            }
         },
     },
 };
