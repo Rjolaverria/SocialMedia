@@ -13,13 +13,14 @@ module.exports = gql`
     }
     type Comment {
         id: ID!
+        user: String!
         username: String!
         dateCreated: String!
         body: String!
     }
     type Like {
         id: ID!
-        username: String!
+        user: String!
         dateCreated: String!
     }
     type User {
@@ -44,5 +45,7 @@ module.exports = gql`
         login(username: String!, password: String!): User!
         createPost(body: String!): Post!
         deletePost(postId: String!): String!
+        addComment(postId: String!, body: String!): Post!
+        deleteComment(postId: String!, commentId: String!): Post!
     }
 `;
