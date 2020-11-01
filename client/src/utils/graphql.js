@@ -18,3 +18,39 @@ export const GET_POSTS = gql`
         }
     }
 `;
+
+export const REGISTER = gql`
+    mutation register(
+        $username: String!
+        $email: String!
+        $password: String!
+        $passwordConfirm: String!
+    ) {
+        register(
+            input: {
+                username: $username
+                email: $email
+                password: $password
+                passwordConfirm: $passwordConfirm
+            }
+        ) {
+            id
+            email
+            authToken
+            username
+            dateCreated
+        }
+    }
+`;
+
+export const LOGIN = gql`
+    mutation login($username: String!, $password: String!) {
+        login(username: $username, password: $password) {
+            id
+            email
+            authToken
+            username
+            dateCreated
+        }
+    }
+`;

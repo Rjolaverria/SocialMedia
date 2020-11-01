@@ -11,8 +11,8 @@ import { Container } from 'semantic-ui-react';
 
 const App = () => (
     <Router>
+        <Navbar />
         <Container>
-            <Navbar />
             <Switch>
                 <Route exact path='/'>
                     <Home />

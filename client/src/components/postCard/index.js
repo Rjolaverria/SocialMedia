@@ -5,6 +5,9 @@ import moment from 'moment';
 const PostCard = ({
     post: { body, dateCreated, id, username, likeCount, commentCount },
 }) => {
+    // Format date
+    dateCreated = moment.utc(Number(dateCreated)).fromNow(true);
+
     return (
         <Card fluid>
             <Card.Content>
@@ -15,7 +18,7 @@ const PostCard = ({
                 />
                 <Card.Header>{username}</Card.Header>
                 <Card.Meta as={Link} to={`/posts/${id}`}>
-                    {moment.utc(Number(dateCreated)).fromNow(true)}
+                    {dateCreated}
                 </Card.Meta>
                 <Card.Description>{body}</Card.Description>
             </Card.Content>
@@ -23,7 +26,6 @@ const PostCard = ({
                 <Button as='div' labelPosition='right'>
                     <Button color='red'>
                         <Icon name='heart' />
-                        Like
                     </Button>
                     <Label as='a' basic color='red' pointing='left'>
                         {likeCount}
@@ -32,7 +34,6 @@ const PostCard = ({
                 <Button as='div' labelPosition='right'>
                     <Button basic color='blue'>
                         <Icon name='comments' />
-                        Comments
                     </Button>
                     <Label as='a' basic color='blue' pointing='left'>
                         {commentCount}

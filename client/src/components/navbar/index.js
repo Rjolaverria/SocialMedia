@@ -1,15 +1,19 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 const Navbar = () => {
-    const path = window.location.pathname;
-    const location = path === '/' ? 'home' : path.substr(1);
-    const [current, setCurrent] = useState(location);
+    const location = useLocation().pathname;
+    const path = location === '/' ? 'home' : location.substr(1);
+    const [current, setCurrent] = useState(path);
+
+    useEffect(() => {
+        setCurrent(path);
+    }, [path]);
 
     const handleItemClick = (_, { name }) => setCurrent(name);
     return (
-        <Menu pointing secondary size='massive' color='blue' className='navbar'>
+        <Menu pointing secondary size='massive' inverted className='navbar'>
             <Menu.Item
                 name='home'
                 active={current === 'home'}
