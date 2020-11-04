@@ -1,16 +1,23 @@
 import { useQuery } from '@apollo/client';
+import { useContext } from 'react';
 import { Grid } from 'semantic-ui-react';
 
-import { PostCard } from '../components';
+import { PostCard, PostForm } from '../components';
+import { AuthContext } from '../context/authContext';
 import { GET_POSTS } from '../utils/graphql';
 
 const Home = () => {
+    const { user } = useContext(AuthContext);
     const { loading, data } = useQuery(GET_POSTS);
     return (
         <Grid columns={3}>
-            <Grid.Row className='page-title'>
-                <h1>Recent Posts</h1>
-            </Grid.Row>
+            {user ? (
+                <PostForm />
+                ) : (
+                <Grid.Row className='page-title'>
+                        <h1>Recent Posts</h1>
+                </Grid.Row>
+            )}
             <Grid.Row>
                 {loading ? (
                     <h1>Loading posts..</h1>

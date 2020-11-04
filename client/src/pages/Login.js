@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Form, Button, Message } from 'semantic-ui-react';
 
+import { AuthContext } from '../context/authContext';
 import { LOGIN } from '../utils/graphql';
 
 const Login = () => {
-    const history = useHistory();
+    const authContext = useContext(AuthContext);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({
         username: '',
@@ -15,10 +16,11 @@ const Login = () => {
 
     const [registerUser, { loading }] = useMutation(LOGIN, {
         update(_, result) {
-            history.push('/');
+            authContext.login(result.data.login);
         },
         onError(error) {
-            setErrors(error.graphQLErrors[0].extensions.errors);
+            if (error.graphQLErrors[0])
+                setErrors(error.graphQLErrors[0].extensions.errors);
         },
         variables: inputs,
     });
@@ -30,6 +32,10 @@ const Login = () => {
         e.preventDefault();
         registerUser();
     };
+
+    if (authContext.user) {
+        return <Redirect to='/' />;
+    }
 
     return (
         <>
