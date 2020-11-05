@@ -1,6 +1,15 @@
+#root {
+  background-color: #f6f8fa !important;
+  height: 100vh;
+} 
+
 .navbar {
-    background-color: #2185d0 !important;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.3) !important;
+    background-color: white !important;
+    border: none !important;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1) !important;
+}
+.ui.menu .item {
+  color: rgba(75,75,75) !important;
 }
 
 .page-title {
@@ -15,11 +24,13 @@ h1 {
 }
 
 .form {
-  max-width: 500px !important; 
+  width: 500px !important;
+  min-width: 300px !important; 
   margin: 0 auto;
-  background: #f8f8f8; 
+  background: white; 
   padding: 1rem;
-  border-radius: 10px ;
+  border-radius: 5px ;
+  box-shadow: 1px 3px 0 #d4d4d5;
 }
 
 .form > h1 {
@@ -41,4 +52,5 @@ h1 {
 
 .ui.card {
   margin: 0;
+  box-shadow: 1px 3px 0 #d4d4d5;
 }
