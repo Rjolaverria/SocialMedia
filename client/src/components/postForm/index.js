@@ -1,5 +1,5 @@
-import { useState, useContext } from 'react';
-import { useMutation } from '@apollo/client';
+import { useState, useContext, Fragment } from 'react';
+import { useMutation, gql } from '@apollo/client';
 import { Form, Button } from 'semantic-ui-react';
 
 import { AuthContext } from '../../context/authContext';
@@ -9,14 +9,22 @@ const PostForm = () => {
     const { user } = useContext(AuthContext);
     const [input, setInput] = useState('');
 
+    
+
     const [createPost, { error }] = useMutation(CREATE_POST, {
         variables: { body: input },
-        update(proxy, result) {
-            const data = proxy.readQuery({
-                query: GET_POSTS,
-            });
-            const newData = [result.data.createPost, ...data.getPosts];
-            proxy.writeQuery({ query: GET_POSTS, newData });
+        update(cache, result) {
+           cache.modify({
+               fields: {
+                   getPosts(existingPosts=[]){
+                       const newPost = cache.writeQuery({
+                           query: GET_POSTS,
+                           data: result.data.createPost,
+                       });
+                       return [newPost, ...existingPosts]
+                   }
+               }
+           })
             setInput('');
         },
     });
