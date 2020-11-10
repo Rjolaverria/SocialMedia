@@ -39,11 +39,9 @@ const Login = () => {
 
     return (
         <>
-            {Object.keys(errors).length > 0 &&
-                errors.general ===
-                    'Invalid Credentials' && (
-                        <Message negative>{errors.general}</Message>
-                    )}
+            {Object.keys(errors).length > 0 && (
+                <Message negative>{errors.general}</Message>
+            )}
             <Form
                 onSubmit={onSubmit}
                 noValidate
