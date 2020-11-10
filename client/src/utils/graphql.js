@@ -25,7 +25,7 @@ export const GET_POSTS = gql`
 `;
 
 export const REGISTER = gql`
-    mutation register(
+    mutation(
         $username: String!
         $email: String!
         $password: String!
@@ -49,7 +49,7 @@ export const REGISTER = gql`
 `;
 
 export const LOGIN = gql`
-    mutation login($username: String!, $password: String!) {
+    mutation($username: String!, $password: String!) {
         login(username: $username, password: $password) {
             id
             email
@@ -62,7 +62,7 @@ export const LOGIN = gql`
 
 
 export const CREATE_POST = gql`
-    mutation createPost($body: String!) {
+    mutation($body: String!) {
         createPost(body: $body) {
             id
             body
@@ -84,8 +84,14 @@ export const CREATE_POST = gql`
     }
 `;
 
+export const DELETE_POST = gql`
+    mutation($postId: ID!) {
+        deletePost(postId: $postId)
+    }
+`;
+
 export const HANDLE_LIKE = gql`
-    mutation likePost($postId: ID!) {
+    mutation($postId: ID!) {
         handleLike(postId: $postId) {
             id
             likes {

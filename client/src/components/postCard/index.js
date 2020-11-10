@@ -1,13 +1,17 @@
+import {useContext} from 'react'
 import { Card, Image, Button, Icon, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
+import { AuthContext } from '../../context/authContext';
+import { DeleteButton, LikeButton } from '..';
+
 const PostCard = ({
-    post: { body, dateCreated, id, username, likeCount, commentCount },
+    post: { body, dateCreated, id, username, likes, likeCount, commentCount },
 }) => {
+    const { user } = useContext(AuthContext);
     // Format date
     dateCreated = moment.utc(Number(dateCreated)).fromNow(true);
-
     return (
         <Card fluid>
             <Card.Content>
@@ -23,14 +27,7 @@ const PostCard = ({
                 <Card.Description>{body}</Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <Button as='div' labelPosition='right'>
-                    <Button color='red'>
-                        <Icon name='heart' />
-                    </Button>
-                    <Label as='a' basic color='red' pointing='left'>
-                        {likeCount}
-                    </Label>
-                </Button>
+                <LikeButton user={user} post={{ id, username, likeCount, likes }} />
                 <Button as='div' labelPosition='right'>
                     <Button basic color='blue'>
                         <Icon name='comments' />
@@ -39,6 +36,9 @@ const PostCard = ({
                         {commentCount}
                     </Label>
                 </Button>
+                {user  && user.username === username && (
+                    <DeleteButton postId={id} />
+                )}
             </Card.Content>
         </Card>
     );
