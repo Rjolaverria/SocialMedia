@@ -12,6 +12,11 @@ export const GET_POSTS = gql`
                 body
                 dateCreated
             }
+            likes {
+                id
+                user
+                dateCreated
+            }
             likeCount
             commentCount
             dateCreated
@@ -75,6 +80,20 @@ export const CREATE_POST = gql`
             }
             likeCount
             commentCount
+        }
+    }
+`;
+
+export const HANDLE_LIKE = gql`
+    mutation likePost($postId: ID!) {
+        handleLike(postId: $postId) {
+            id
+            likes {
+                id
+                user
+                dateCreated
+            }
+            likeCount
         }
     }
 `;
