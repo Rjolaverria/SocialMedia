@@ -6,6 +6,22 @@ export const GET_POSTS = gql`
             id
             body
             username
+            likes {
+                id
+                user
+            }
+            likeCount
+            commentCount
+            dateCreated
+        }
+    }
+`;
+export const GET_POST = gql`
+     query($postId: ID!) {
+        getPost(postId:  $postId) {
+            id
+            body
+            username
             comments {
                 id
                 username
@@ -15,7 +31,6 @@ export const GET_POSTS = gql`
             likes {
                 id
                 user
-                dateCreated
             }
             likeCount
             commentCount
