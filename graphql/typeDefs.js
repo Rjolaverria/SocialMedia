@@ -32,7 +32,7 @@ module.exports = gql`
     }
     type Query {
         getPosts: [Post]
-        getPost(postId: String!): Post!
+        getPost(postId: ID!): Post!
     }
     input RegisterInput {
         username: String!
