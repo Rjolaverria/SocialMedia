@@ -1,25 +1,34 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import {useHistory} from 'react-router-dom'
 import { Button, Icon, Confirm } from 'semantic-ui-react';
 
-import { DELETE_POST } from '../../utils/graphql';
+import { DELETE_POST, DELETE_COMMENT } from '../../utils/graphql';
 
-const DeleteButton = ({ postId }) => {
+const DeleteButton = ({ postId, commentId }) => {
+    const history = useHistory()
     const [confirm, setConfirm] = useState(false);
-    const [deletePost] = useMutation(DELETE_POST, {
+
+    const mutation = commentId ? DELETE_COMMENT : DELETE_POST
+    const [deletePost] = useMutation(mutation, {
         variables: {
             postId,
         },
         update(cache) {
-            cache.modify({
-                fields: {
-                    getPosts(existingPosts, { readField }) {
-                        return existingPosts.filter(
-                            (post) => postId !== readField('id', post)
-                        );
+            if(postId){
+                cache.modify({
+                    fields: {
+                        getPosts(existingPosts, { readField }) {
+                            return existingPosts.filter(
+                                (post) => postId !== readField('id', post)
+                            );
+                        },
                     },
-                },
-            });
+                })
+                if (history.location.pathname !== '/'){
+                history.push('/')
+                }
+            }
             setConfirm(false);
         },
         onError(error) {

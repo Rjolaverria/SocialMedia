@@ -49,8 +49,10 @@ h1 {
   width: 100%;
   padding: 0 1rem;
 }
-
 .ui.card {
-  margin: 0;
   box-shadow: 1px 3px 0 #d4d4d5;
+}
+
+.postcards-container > .ui.card {
+  margin: 0;
 }

@@ -22,7 +22,7 @@ const Home = () => {
             )}
             <Grid.Row>
                 {loading ? (
-                    <h1>Loading posts..</h1>
+                    <h1 className='loading'>Loading posts..</h1>
                 ) : (
                     <div className='postcards-container'>
                         {data.getPosts &&
