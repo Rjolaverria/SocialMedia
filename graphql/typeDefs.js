@@ -45,8 +45,8 @@ module.exports = gql`
         login(username: String!, password: String!): User!
         createPost(body: String!): Post!
         deletePost(postId: ID!): String!
-        addComment(postId: String!, body: String!): Post!
-        deleteComment(postId: String!, commentId: String!): Post!
+        addComment(postId: ID!, body: String!): Post!
+        deleteComment(postId: ID!, commentId: ID!): Post!
         handleLike(postId: ID!): Post!
     }
     type Subscription {

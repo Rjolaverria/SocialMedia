@@ -119,6 +119,20 @@ export const HANDLE_LIKE = gql`
     }
 `;
 
+export const ADD_COMMENT = gql`
+    mutation($postId: ID!, $body: String!) {
+        addComment(postId: $postId, body: $body) {
+            id
+            comments {
+                id
+                username
+                dateCreated
+                body
+            }
+            commentCount
+    }
+`;
+
 export const DELETE_COMMENT = gql`
     mutation($postId: ID!, $commentId: ID!) {
         deleteComment(postId: $postId, commentId: $commentId) {
@@ -126,7 +140,7 @@ export const DELETE_COMMENT = gql`
             comments {
                 id
                 username
-                createdAt
+                dateCreated
                 body
             }
             commentCount
