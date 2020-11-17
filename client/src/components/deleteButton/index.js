@@ -10,12 +10,13 @@ const DeleteButton = ({ postId, commentId }) => {
     const [confirm, setConfirm] = useState(false);
 
     const mutation = commentId ? DELETE_COMMENT : DELETE_POST
-    const [deletePost] = useMutation(mutation, {
+    const [deleteItem] = useMutation(mutation, {
         variables: {
             postId,
+            commentId
         },
         update(cache) {
-            if(postId){
+            if(!commentId && postId){
                 cache.modify({
                     fields: {
                         getPosts(existingPosts, { readField }) {
@@ -49,7 +50,7 @@ const DeleteButton = ({ postId, commentId }) => {
             <Confirm
                 open={confirm}
                 onCancel={() => setConfirm(false)}
-                onConfirm={() => deletePost()}
+                onConfirm={() => deleteItem()}
             />
         </>
     );
