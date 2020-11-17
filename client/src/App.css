@@ -56,3 +56,7 @@ h1 {
 .postcards-container > .ui.card {
   margin: 0;
 }
+
+.comment-form{
+  width: 100% !important
+}

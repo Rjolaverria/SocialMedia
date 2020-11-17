@@ -130,6 +130,7 @@ export const ADD_COMMENT = gql`
                 body
             }
             commentCount
+        }
     }
 `;
 

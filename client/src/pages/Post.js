@@ -13,7 +13,7 @@ import {
 
 import { AuthContext } from '../context/authContext';
 import { GET_POST } from '../utils/graphql';
-import { LikeButton, DeleteButton, CommentCard } from '../components';
+import { LikeButton, DeleteButton, CommentCard, CommentForm } from '../components';
 
 const Post = (props) => {
     const postId = props.match.params.postId;
@@ -85,6 +85,7 @@ const Post = (props) => {
                             )}
                         </Card.Content>
                     </Card>
+                    {user && (<CommentForm postId={postId}/>)}
                     {post.comments.map((comment) => (
                         <CommentCard
                             key={comment.id}
