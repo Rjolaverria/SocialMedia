@@ -29,6 +29,4 @@ mongoose
     .then((res) => console.log(`🚀 Server running @ ${res.url}`))
     .catch((err) => {
         console.error(err);
-        // Exit process
-        process.exit(1);
     });
