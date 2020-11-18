@@ -1,0 +1,4 @@
+{
+    "MongoURI": "MongoURI",
+    "JWTsecret": "JWTsecret"
+}
