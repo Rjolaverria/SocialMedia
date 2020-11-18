@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { Button, Label, Icon } from 'semantic-ui-react';
 
+import {Tooltip} from '..'
 import { HANDLE_LIKE } from '../../utils/graphql';
 
 const LikeButton = ({ user, post: { likes, likeCount, username, id } }) => {
@@ -24,20 +25,22 @@ const LikeButton = ({ user, post: { likes, likeCount, username, id } }) => {
     }, [user, likeCount, likes]);
 
     return (
-        <Button as='div' labelPosition='right' onClick={handleLike}>
-            {user && liked ? (
-                <Button color='red'>
-                    <Icon name='heart' />
-                </Button>
-            ) : (
-                <Button color='red' basic>
-                    <Icon name='heart' />
-                </Button>
-            )}
-            <Label as='a' basic color='red' pointing='left'>
-                {likeCount}
-            </Label>
-        </Button>
+        <Tooltip content={liked ? 'Unlike' : 'Like'}>
+            <Button as='div' labelPosition='right' onClick={handleLike}>
+                {user && liked ? (
+                    <Button color='red'>
+                        <Icon name='heart' />
+                    </Button>
+                ) : (
+                    <Button color='red' basic>
+                        <Icon name='heart' />
+                    </Button>
+                )}
+                <Label as='a' basic color='red' pointing='left'>
+                    {likeCount}
+                </Label>
+            </Button>
+        </Tooltip>
     );
 };
 

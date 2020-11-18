@@ -5,3 +5,4 @@ export { default as CommentCard } from './commentCard';
 export { default as CommentForm } from './commentForm';
 export { default as LikeButton } from './likeButton';
 export { default as DeleteButton } from './deleteButton';
+export { default as Tooltip } from './tooltip';

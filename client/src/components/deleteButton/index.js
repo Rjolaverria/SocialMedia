@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import {useHistory} from 'react-router-dom'
 import { Button, Icon, Confirm } from 'semantic-ui-react';
 
+import {Tooltip} from '..'
 import { DELETE_POST, DELETE_COMMENT } from '../../utils/graphql';
 
 const DeleteButton = ({ postId, commentId }) => {
@@ -39,14 +40,16 @@ const DeleteButton = ({ postId, commentId }) => {
 
     return (
         <>
-            <Button
-                as='div'
-                color='red'
-                floated='right'
-                onClick={() => setConfirm(true)}
-            >
-                <Icon name='trash' style={{ margin: 0 }} />
-            </Button>
+            <Tooltip content='Delete'>
+                <Button
+                    as='div'
+                    color='red'
+                    floated='right'
+                    onClick={() => setConfirm(true)}
+                >
+                    <Icon name='trash' style={{ margin: 0 }} />
+                </Button>
+            </Tooltip>
             <Confirm
                 open={confirm}
                 onCancel={() => setConfirm(false)}
