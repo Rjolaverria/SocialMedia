@@ -6,8 +6,13 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+let uri =
+    process.env.NODE_ENV === 'production'
+        ? 'https://social-media-merg.herokuapp.com/'
+        : 'http://localhost:5000';
+
 const httpLink = createHttpLink({
-    uri: 'https://social-media-merg.herokuapp.com/',
+    uri: uri,
 });
 
 const authLink = setContext((_, { headers }) => {
