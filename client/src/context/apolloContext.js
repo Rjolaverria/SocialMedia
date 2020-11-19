@@ -12,7 +12,7 @@ let uri =
         : 'http://localhost:5000';
 
 const httpLink = createHttpLink({
-    uri: uri,
+    uri,
 });
 
 const authLink = setContext((_, { headers }) => {
